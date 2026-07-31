@@ -1,0 +1,33 @@
+class Solution {
+    static {
+        for (int i = 0; i < 500; i++) {
+            countBinarySubstrings("");
+        }
+    }
+    public static int countBinarySubstrings(String s) { 
+        int ans = 0;
+        int ones = 0, zeroes = 0;
+        char[] str = s.toCharArray();
+        boolean state = true; 
+        for (int i=0; i<str.length; i++) {
+            if (str[i] == '1') {
+                if (!state) {
+                    ans += Math.min(ones, zeroes);
+                    ones=0;
+                    state=true; 
+                }    
+                ones++;
+            } else {
+
+                if (state) {
+                    ans += Math.min(ones, zeroes);
+                    zeroes=0;
+                    state=false; 
+                }
+                zeroes++;
+            }
+        }
+        ans+=Math.min(ones, zeroes);
+        return ans;
+    }
+}
